@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Survey Form</title>
+</head>
+<body>
+  <h2>Survey Form</h2>
+  <form action="https://formspree.io/f/mjkrqadn" method="POST">
+    <label>
+      First Name:
+      <input type="text" name="first_name" required>
+    </label>
+    <br><br>
+
+    <label>
+      Last Name:
+      <input type="text" name="last_name" required>
+    </label>
+    <br><br>
+
+    <label>
+      Email:
+      <input type="email" name="email" required>
+    </label>
+    <br><br>
+
+    <label>
+      Phone Number:
+      <input type="tel" name="phone_number" required>
+    </label>
+    <br><br>
+
+    <label>
+      Message:
+      <textarea name="message" required></textarea>
+    </label>
+    <br><br>
+
+    <label>
+      <input type="checkbox" required>
+      I agree to the <a href="https://www.google.com" target="_blank">Terms of Service</a>
+    </label>
+    <br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
