@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fundraiser Progress</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: white;
+    margin: 0;
+    padding: 0;
+  }
+  .progress-container {
+    width: 600px;
+    height: 40px;
+    position: relative;
+  }
+  .progress-bar {
+    background: #e0e0e0;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 40px;
+    position: relative;
+  }
+  .progress-fill {
+    background: #2196f3;
+    height: 100%;
+    width: 0;
+    border-radius: 20px 0 0 20px;
+    transition: width 1s ease;
+  }
+  .progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 40px;
+    line-height: 40px;
+    font-weight: bold;
+    color: #000;
+    user-select: none;
+    pointer-events: none;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div id="progress-fill" class="progress-fill"></div>
+      <div id="progress-text" class="progress-text">0€ out of 2000€</div>
+    </div>
+  </div>
+
+<script>
+  const currentAmount = 0;  // Update as needed
+  const goalAmount = 2000;
+
+  const percent = Math.min((currentAmount / goalAmount) * 100, 100);
+  const fill = document.getElementById('progress-fill');
+  const text = document.getElementById('progress-text');
+
+  fill.style.width = percent + '%';
+
+  // Change text color depending on fill width for contrast
+  if (percent > 50) {
+    text.style.color = '#fff';
+  } else {
+    text.style.color = '#000';
+  }
+
+  text.textContent = `${currentAmount}€ out of ${goalAmount}€`;
+</script>
+</body>
+</html>
