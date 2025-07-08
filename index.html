@@ -1,49 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Survey Form</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Survey Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f7f8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 0;
+    margin: 0;
+  }
+  .container {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 420px;
+  }
+  h1 {
+    margin-bottom: 24px;
+    font-weight: 700;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+  }
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #555;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  .tos {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  .tos a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  .tos a:hover {
+    text-decoration: underline;
+  }
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .checkbox-label input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
 </head>
 <body>
-  <h2>Survey Form</h2>
-  <form action="https://formspree.io/f/mjkrqadn" method="POST">
-    <label>
-      First Name:
-      <input type="text" name="first_name" required>
-    </label>
-    <br><br>
+  <div class="container">
+    <h1>Survey Form</h1>
+    <form action="https://formspree.io/f/mjkrqadn" method="POST">
+      <label for="first_name">First Name</label>
+      <input type="text" id="first_name" name="first_name" required />
 
-    <label>
-      Last Name:
-      <input type="text" name="last_name" required>
-    </label>
-    <br><br>
+      <label for="last_name">Last Name</label>
+      <input type="text" id="last_name" name="last_name" required />
 
-    <label>
-      Email:
-      <input type="email" name="email" required>
-    </label>
-    <br><br>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
 
-    <label>
-      Phone Number:
-      <input type="tel" name="phone_number" required>
-    </label>
-    <br><br>
+      <label for="phone_number">Phone Number</label>
+      <input type="tel" id="phone_number" name="phone_number" required />
 
-    <label>
-      Message:
-      <textarea name="message" required></textarea>
-    </label>
-    <br><br>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
 
-    <label>
-      <input type="checkbox" required>
-      I agree to the <a href="https://www.google.com" target="_blank">Terms of Service</a>
-    </label>
-    <br><br>
+      <label class="checkbox-label">
+        <input type="checkbox" required />
+        I agree to the <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+      </label>
 
-    <button type="submit">Submit</button>
-  </form>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </body>
 </html>
