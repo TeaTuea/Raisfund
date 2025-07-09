@@ -7,7 +7,7 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #f4f7f8;
+    background: #ffffff;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -15,7 +15,7 @@
     margin: 0;
   }
   .container {
-    background: #fff;
+    background: #f4f4f4;
     padding: 30px 40px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -37,8 +37,7 @@
   }
   input[type="text"],
   input[type="email"],
-  input[type="tel"],
-  textarea {
+  input[type="tel"] {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #ccc;
@@ -50,14 +49,9 @@
   }
   input[type="text"]:focus,
   input[type="email"]:focus,
-  input[type="tel"]:focus,
-  textarea:focus {
+  input[type="tel"]:focus {
     border-color: #007BFF;
     outline: none;
-  }
-  textarea {
-    resize: vertical;
-    min-height: 80px;
   }
   .tos {
     font-size: 14px;
@@ -112,12 +106,9 @@
       <label for="phone_number">Phone Number</label>
       <input type="tel" id="phone_number" name="phone_number" required />
 
-      <label for="message">Message</label>
-      <textarea id="message" name="message" required></textarea>
-
       <label class="checkbox-label">
         <input type="checkbox" required />
-        I agree to the <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+        I agree to the <a href="https://www.google.com" target="_blank" rel="noopener noreferrer"> Terms of Service</a>
       </label>
 
       <button type="submit">Submit</button>
