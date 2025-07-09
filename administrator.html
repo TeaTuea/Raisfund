@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Administrator Panel</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 20px; }
+  .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 6px; }
+  h1 { text-align: center; }
+  button { margin: 5px; padding: 8px 12px; }
+  .folder-list, .player-list { margin-top: 20px; }
+  .folder-item, .player-item { border: 1px solid #ccc; padding: 10px; margin-bottom: 6px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
+  .player-info { display: flex; align-items: center; }
+  .player-pic {
+    width: 40px; height: 40px; border-radius: 50%; background: #ddd; margin-right: 10px;
+    object-fit: cover;
+  }
+  .winner-label { color: green; font-weight: bold; margin-left: 10px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Administrator Panel</h1>
+  <button id="btnCreateFolder">Create Folder</button>
+  <button id="btnViewArchive">View Archive</button>
+
+  <div id="folderContainer" class="folder-list"></div>
+
+  <div id="playerContainer" class="player-list"></div>
+
+  <button id="btnBack" style="display:none;">Back</button>
+</div>
+
+<script>
+  let folders = []; // This should come from your backend
+  let archiveMode = false;
+  let currentFolder = null;
+
+  const folderContainer = document.getElementById('folderContainer');
+  const playerContainer = document.getElementById('playerContainer');
+  const btnBack = document.getElementById('btnBack');
+
+  document.getElementById('btnCreateFolder').onclick = () => {
+    const name = prompt('Enter folder name (max 50 chars):');
+    if (name && name.length <= 50) {
+      // TODO: send to backend to create folder
+      const newFolder = { id: Date.now(), name, players: [], archived: false };
+      folders.push(newFolder);
+      renderFolders();
+    }
+  };
+
+  document.getElementById('btnViewArchive').onclick = () => {
+    archiveMode = true;
+    renderFolders();
+  };
+
+  btnBack.onclick = () => {
+    currentFolder = null;
+    playerContainer.innerHTML = '';
+    btnBack.style.display = 'none';
+    renderFolders();
+  };
+
+  function renderFolders() {
+    playerContainer.innerHTML = '';
+    btnBack.style.display = 'none';
+
+    let filtered = archiveMode ? folders.filter(f => f.archived) : folders.filter(f => !f.archived);
+    if (filtered.length === 0) {
+      folderContainer.innerHTML = '<p>No folders to show.</p>';
+      return;
+    }
+
+    folderContainer.innerHTML = '';
+    filtered.forEach(folder => {
+      const div = document.createElement('div');
+      div.className = 'folder-item';
+      div.textContent = folder.name;
+
+      const btnView = document.createElement('button');
+      btnView.textContent = 'Open';
+      btnView.onclick = () => openFolder(folder);
+
+      div.appendChild(btnView);
+      folderContainer.appendChild(div);
+    });
+  }
+
+  function openFolder(folder) {
+    currentFolder = folder;
+    folderContainer.innerHTML = '';
+    btnBack.style.display = 'inline-block';
+
+    if (folder.players.length === 0) {
+      playerContainer.innerHTML = '<p>No players yet.</p>';
+      return;
+    }
+
+    playerContainer.innerHTML = '';
+    folder.players.forEach(player => {
+      const div = document.createElement('div');
+      div.className = 'player-item';
+
+      const infoDiv = document.createElement('div');
+      infoDiv.className = 'player-info';
+
+      const img = document.createElement('img');
+      img.className = 'player-pic';
+      img.src = player.picture || '';
+      img.alt = 'Player Pic';
+
+      infoDiv.appendChild(img);
+
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = `${player.playerNumber.toString().padStart(3,'0')} - ${player.firstName} ${player.lastName}`;
+      infoDiv.appendChild(nameSpan);
+
+      if (folder.players.filter(p => !p.eliminated).length === 1 && !player.eliminated) {
+        const winnerLabel = document.createElement('span');
+        winnerLabel.className = 'winner-label';
+        winnerLabel.textContent = 'WINNER';
+        infoDiv.appendChild(winnerLabel);
+      }
+
+      div.appendChild(infoDiv);
+
+      // Eliminate/Uneliminate button
+      const btnEliminate = document.createElement('button');
+      btnEliminate.textContent = player.eliminated ? 'Uneliminate' : 'Eliminate';
+      btnEliminate.onclick = () => {
+        player.eliminated = !player.eliminated;
+        openFolder(folder); // refresh
+      };
+      div.appendChild(btnEliminate);
+
+      // Edit and Delete buttons (simplified here)
+      const btnDelete = document.createElement('button');
+      btnDelete.textContent = 'Delete';
+      btnDelete.onclick = () => {
+        if(confirm('Delete this player?')) {
+          folder.players = folder.players.filter(p => p.id !== player.id);
+          openFolder(folder);
+        }
+      };
+      div.appendChild(btnDelete);
+
+      playerContainer.appendChild(div);
+    });
+  }
+
+  renderFolders();
+</script>
+
+</body>
+</html>
