@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Survey Form</title>
+<title>Signup</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -95,10 +95,12 @@
       <input type="tel" id="phone_number" name="phone_number" required />
 
       <label class="checkbox-label">
-  <input type="checkbox" id="tos" required />
-  I agree to the&nbsp;<a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Terms of Service</a>
-</label>
-      
+        <input type="checkbox" id="tos" required />
+        I agree to the <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+      </label>
+
+      <input type="hidden" name="_next" value="thankyou.html" />
+
       <button type="submit">Submit</button>
     </form>
   </div>
